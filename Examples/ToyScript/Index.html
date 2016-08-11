@@ -1,0 +1,143 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>ToyScript</title>
+    <style>
+        
+        textarea {
+            height: 600px;
+            width: 600px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>ToyScript</h1>
+    <p>
+        A unfinished program language I was developing and used as basis to build the Rule api.<br>
+        See the console (F12) in your browser to see the print output.<br>
+    </p>
+    <p>
+        <input id="btn-run" type="button" value="run" />
+    </p>
+    <textarea id="inp-code">print "Hello, world!"
+
+// Arrays and ranges.
+arr = [1,2,3,4,5,6,7]
+print arr[..2]
+print arr[2..]
+print arr[2..4]
+
+// Looping
+count = 10
+
+while 0 < count
+	print count
+	count = count - 1
+end
+
+// Structs
+point = {}
+point.x = 2
+point.y = 4
+print point.x * point.y
+
+// I'm a function.
+batman = fn(n)
+    return "nan" * n
+end
+
+print batman(20)
+
+// I'm the good ol Fibonacci function.
+// It parses but recursion does not work yet.
+fib = fn(n)
+	print n
+    if n < 2
+	return 1
+    else
+	return fib(n-1) + fib(n-2)
+    end
+end
+
+// A weird way to print "nannannan"
+print (batman(22) + batman(3)[false or true])[3..5] * 3
+
+// You can make a function which returns functions.
+givefn = fn(n)
+	if n == 0
+		return fn(x)
+			return "A" * x
+		end
+	else if n == 1
+		return fn(x)
+			return "B" * x
+		end
+	else
+		return fn(x)
+			tmp = fn(y)
+				return "C" * y
+			end
+
+			return tmp(x)
+		end
+	end
+end
+
+print givefn(0)(5)
+print givefn(1)(10)
+print givefn(2)(15)
+
+// Bye!</textarea>
+    <script src="../../Source/Rule.js"></script>
+    <script src="AstNode/BaseClasses/BaseLiteral.js"></script>
+    <script src="AstNode/BaseClasses/BaseOperation.js"></script>
+    <script src="AstNode/Core/AssignmentAtIndex.js"></script>
+    <script src="AstNode/Core/AssignmentAtKey.js"></script>
+    <script src="AstNode/Core/AssignmentAtScope.js"></script>
+    <script src="AstNode/Core/Branch.js"></script>
+    <script src="AstNode/Core/Conditional.js"></script>
+    <script src="AstNode/Core/GetVariableAtIndex.js"></script>
+    <script src="AstNode/Core/GetVariableAtKey.js"></script>
+    <script src="AstNode/Core/GetVariableAtScope.js"></script>
+    <script src="AstNode/Core/FunctionCall.js"></script>
+    <script src="AstNode/Core/If.js"></script>
+    <script src="AstNode/Core/Return.js"></script>
+    <script src="AstNode/Core/Variable.js"></script>
+    <script src="AstNode/Core/While.js"></script>
+    <script src="AstNode/List/Range.js"></script>
+    <script src="AstNode/List/RangeFrom.js"></script>
+    <script src="AstNode/List/RangeTo.js"></script>
+    <script src="AstNode/Literals/Boolean.js"></script>
+    <script src="AstNode/Literals/Function.js"></script>
+    <script src="AstNode/Literals/List.js"></script>
+    <script src="AstNode/Literals/Number.js"></script>
+    <script src="AstNode/Literals/String.js"></script>
+    <script src="AstNode/Literals/Struct.js"></script>
+    <script src="AstNode/Math/Addition.js"></script>
+    <script src="AstNode/Math/Divide.js"></script>
+    <script src="AstNode/Math/Inverse.js"></script>
+    <script src="AstNode/Math/Modules.js"></script>
+    <script src="AstNode/Math/Multiply.js"></script>
+    <script src="AstNode/Math/Power.js"></script>
+    <script src="AstNode/Math/Substract.js"></script>
+    <script src="AstNode/NativeFunctions/Print.js"></script>
+    <script src="AstNode/Relational/Equals.js"></script>
+    <script src="AstNode/Relational/GreaterThen.js"></script>
+    <script src="AstNode/Relational/LogicalAnd.js"></script>
+    <script src="AstNode/Relational/LogicalOr.js"></script>
+    <script src="AstNode/Relational/SmallerThen.js"></script>
+    <script src="Types/BaseType.js"></script>
+    <script src="Types/Boolean.js"></script>
+    <script src="Types/Function.js"></script>
+    <script src="Types/List.js"></script>
+    <script src="Types/Null.js"></script>
+    <script src="Types/Number.js"></script>
+    <script src="Types/String.js"></script>
+    <script src="Types/Struct.js"></script>
+    <script src="Compiler.js"></script>
+    <script src="Interperter.js"></script>
+    <script src="Index.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es6"
+    },
+    "files": [
+        "Examples/Common rules/Index.ts",
+        "Examples/INI Reader/IniReader.ts",
+        "Examples/JSON Reader/JsonReader.ts",
+        "Examples/ToyScript/References.ts",
+        "Extern/Test.ts",
+        "Source/Rule.ts",
+        "Tests/Misc.ts",
+        "Tests/RuleApi.ts"
+    ]
+}
