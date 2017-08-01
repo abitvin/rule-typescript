@@ -421,5 +421,56 @@ namespace Abitvin
             assert(result.branches[2] === 3);
 
             done();
+        })
+
+        .it("Bug v0.5.12", (assert, done) =>
+        {
+            let stmtCount = [0, 3, 1];
+
+            let blockFn = (b, l) => {
+                assert(b.length === stmtCount.pop());
+                return [1];
+            };
+
+            let rootFn = (b: number[], l) => {
+                assert(b.length === 1);
+                return b;
+            };
+
+            let stmtFn = (b, l) => {
+                assert(b.length === 0);
+                return [7];
+            };
+           
+            let ws = new Rule<number, false>().literal(" ");
+            let noneOrManyWs = new Rule<number, false>().noneOrMany(ws);
+            let stmt = new Rule<number, false>(stmtFn).literal("stmt");
+            let wsPlusStmt = new Rule<number, false>().one(noneOrManyWs).one(stmt);
+            let stmts = new Rule<number, false>().one(stmt).noneOrMany(wsPlusStmt);
+            let block = new Rule<number, false>(blockFn).maybe(stmts);
+            let root = new Rule<number, false>(rootFn).one(noneOrManyWs).one(block).one(noneOrManyWs);
+
+            {
+                const result = root.scan("stmt");
+                assert(result.isSuccess);
+                assert(result.branches.length === 1);
+                assert(result.branches[0] === 1);
+            }
+
+            {
+                const result = root.scan("stmt stmt stmt");
+                assert(result.isSuccess);
+                assert(result.branches.length === 1);
+                assert(result.branches[0] === 1);
+            }
+
+            {
+                const result = root.scan("");
+                assert(result.isSuccess);
+                assert(result.branches.length === 1);
+                assert(result.branches[0] === 1);
+            }
+
+            done();
         });
 }

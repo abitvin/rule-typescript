@@ -57,7 +57,7 @@ namespace Abitvin
             this._parts = [];
 		}
         
-        public static get version(): string { return "0.5.2"; }
+        public static get version(): string { return "0.6.0"; }
         public set branchFn(value: BranchFn<TBranch>) { this._branchFn = value; }
         public get meta(): TMeta { return this._meta; }
         public set meta(value: TMeta) { this._meta = value; }
@@ -369,12 +369,12 @@ namespace Abitvin
             return v == null ? false : v.constructor === Array;
         }
         
-        private isInteger(v: any): v is Number
+        private isInteger(v: any): v is number
         {
             return this.isNumber(v) ? v % 1 === 0 : false;
         }
         
-        private isNumber(v: any): v is Number
+        private isNumber(v: any): v is number
         {
             return v == null ? false : v.constructor === Number;
         }
@@ -555,7 +555,7 @@ namespace Abitvin
             while ((progress = rule.run(newCtx)) !== -1)
             {
                 if (progress === 0)
-                    return 0;
+                    return this.merge(ctx, newCtx);
                 
                 if (++count === max)
                     break;

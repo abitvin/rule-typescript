@@ -17,7 +17,7 @@
         step();
     }
 
-    code.onkeydown = function (e)
+    code.onkeydown = function (this:HTMLInputElement, e)
     {
         if (e.which === 9)
         {
