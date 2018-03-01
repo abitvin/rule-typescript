@@ -13,7 +13,7 @@ namespace Abitvin
                 return [true, false, false, true];
             };
             
-            const r = new Rule<boolean, void>(fn).all().all().all().all().all().all().all();
+            const r = new Rule<boolean, void>(fn).anyChar().anyChar().anyChar().anyChar().anyChar().anyChar().anyChar();
             const result = r.scan(code);
             
             assert(result.isSuccess);
@@ -32,7 +32,7 @@ namespace Abitvin
                 return [0, 1, 2, 3];
             };
             
-            const c = new Rule<number, void>().allExcept('A', 'B', 'C', 'D');
+            const c = new Rule<number, void>().anyCharExcept('A', 'B', 'C', 'D');
             const r = new Rule<number, void>(fn).exact(3, c);
             
             const result = r.scan(code);

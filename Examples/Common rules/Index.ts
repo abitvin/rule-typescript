@@ -46,7 +46,7 @@ namespace Abitvin
             const strEscapeLatin1 = new ScanOnlyRule(parseCharCodeFn).literal("\\x").exact(2, hex);
             const strEscapeUTF16 = new ScanOnlyRule(parseCharCodeFn).literal("\\u").exact(4, hex);
             const strEscapeUnknown = new ScanOnlyRule(passLexemeFn).literal("\\");
-            const strAllExceptBs = new ScanOnlyRule(passLexemeFn).allExcept(["\""]);
+            const strAllExceptBs = new ScanOnlyRule(passLexemeFn).anyCharExcept(["\""]);
             const strChar = new ScanOnlyRule().anyOf(strEscapeControl, strEscapeLatin1, strEscapeUTF16, strEscapeUnknown, strAllExceptBs);
             const strValue = new ScanOnlyRule(combineCharsFn).noneOrMany(strChar);
             const str = new ScanOnlyRule().literal("\"").one(strValue).literal("\"");

@@ -35,7 +35,7 @@ namespace Abitvin
             let currentScope = ini;
             
             // Comment
-            const commentChar = new IniRule().allExcept("\r", "\n");
+            const commentChar = new IniRule().anyCharExcept("\r", "\n");
             const comment = new IniRule().literal(";").noneOrMany(commentChar);
             
             // Property
@@ -53,9 +53,9 @@ namespace Abitvin
                 return [];
             };
             
-            const propNameChar = new IniRule().allExcept("[", "]", "\r", "\n", "="); 
+            const propNameChar = new IniRule().anyCharExcept("[", "]", "\r", "\n", "="); 
             const propName = new IniRule(propNameFn).atLeast(1, propNameChar);
-            const propValueChar = new IniRule().allExcept("\r", "\n"); 
+            const propValueChar = new IniRule().anyCharExcept("\r", "\n"); 
             const propValue = new IniRule(propValueFn).atLeast(1, propValueChar);
             const prop = new IniRule(propFn).one(propName).literal("=").one(propValue);
             
@@ -71,7 +71,7 @@ namespace Abitvin
                 return [];
             };
             
-            const sectionChar = new IniRule().allExcept("[", "]", "\r", "\n", " ", ".");
+            const sectionChar = new IniRule().anyCharExcept("[", "]", "\r", "\n", " ", ".");
             const sectionScope = new IniRule(sectionScopeFn).atLeast(1, sectionChar);
             const sectionScopeLoop = new IniRule().literal(".").one(sectionScope);
             const sectionRoot = new IniRule(sectionRootFn).literal("[");

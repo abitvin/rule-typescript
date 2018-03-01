@@ -72,7 +72,7 @@ namespace Abitvin
             const strEscapeLatin1 = new JsonRule(parseCharCodeFn).literal("\\x").exact(2, hex);
             const strEscapeUTF16 = new JsonRule(parseCharCodeFn).literal("\\u").exact(4, hex);
             const strEscapeUnknown = new JsonRule(passLexemeFn).literal("\\");
-            const strAllExceptBs = new JsonRule(passLexemeFn).allExcept("\"");
+            const strAllExceptBs = new JsonRule(passLexemeFn).anyCharExcept("\"");
             const strChar = new JsonRule().anyOf([strEscapeControl, strEscapeLatin1, strEscapeUTF16, strEscapeUnknown, strAllExceptBs]);
             const strValue = new JsonRule(combineCharsFn).noneOrMany(strChar);
             const str = new JsonRule().literal("\"").one(strValue).literal("\"");

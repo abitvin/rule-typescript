@@ -418,7 +418,7 @@ namespace Abitvin.ToyScript
             const end = new BiteRule().noneOrMany(ws).literal("end");
 
             // Comment
-            const commentChar = new BiteRule().allExcept("\n", "\r");
+            const commentChar = new BiteRule().anyCharExcept("\n", "\r");
             const comment = new BiteRule(commentNode).literal("//").noneOrMany(commentChar);
 
 			// Identifier, variable and types
@@ -431,7 +431,7 @@ namespace Abitvin.ToyScript
 			const numbr = new BiteRule(numberNode).one(integer).maybe(decimalFraction);
             
             const strEscape = new BiteRule().alter("\\\"", "\"");
-            const strAllExcept = new BiteRule().allExcept("\"");
+            const strAllExcept = new BiteRule().anyCharExcept("\"");
             const strChar = new BiteRule().anyOf(strEscape, strAllExcept);
             const strValue = new BiteRule(stringNode).noneOrMany(strChar);
             const str = new BiteRule().literal("\"").one(strValue).literal("\"");

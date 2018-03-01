@@ -57,37 +57,12 @@ namespace Abitvin
             this._parts = [];
 		}
         
-        public static get version(): string { return "0.6.0"; }
+        public static get version(): string { return "0.7.0"; }
         public set branchFn(value: BranchFn<TBranch>) { this._branchFn = value; }
         public get meta(): TMeta { return this._meta; }
         public set meta(value: TMeta) { this._meta = value; }
         
-        public all(): this
-        {
-            this._parts.push(this.scanAllLeaf.bind(this, []));
-			return this;
-        }
-        
-        public allExcept(...list: string[]): this
-        public allExcept(list: string[]): this
-        public allExcept(arg1: any): this
-		{
-            const list: string[] = this.getVariadicArray<string>(arguments);
-            
-            if (list.length === 0)
-                throw new Error("No arguments given for `allExcept`.");
-            
-            if (list.some(i => i == null))
-                throw new Error("An argument in `allExcept` cannot be null or undefined.");
-            
-            if (list.some(i => i.length !== 1))
-                throw new Error("An 'allExcept' item can only be a single character.")
-            
-            this._parts.push(this.scanAllLeaf.bind(this, list));
-			return this;
-		}
-
-		public alter(...list: string[]): this
+        public alter(...list: string[]): this
         public alter(list: string[]): this
         public alter(arg1: any): this
 		{
@@ -103,6 +78,31 @@ namespace Abitvin
                 throw new Error("Alter list must be a factor of 2.");
 
 			this._parts.push(this.scanAlterLeaf.bind(this, list));
+			return this;
+        }
+        
+        public anyChar(): this
+        {
+            this._parts.push(this.scanAllLeaf.bind(this, []));
+			return this;
+        }
+        
+        public anyCharExcept(...list: string[]): this
+        public anyCharExcept(list: string[]): this
+        public anyCharExcept(arg1: any): this
+		{
+            const list: string[] = this.getVariadicArray<string>(arguments);
+            
+            if (list.length === 0)
+                throw new Error("No arguments given for `allExcept`.");
+            
+            if (list.some(i => i == null))
+                throw new Error("An argument in `allExcept` cannot be null or undefined.");
+            
+            if (list.some(i => i.length !== 1))
+                throw new Error("An 'allExcept' item can only be a single character.")
+            
+            this._parts.push(this.scanAllLeaf.bind(this, list));
 			return this;
 		}
 
